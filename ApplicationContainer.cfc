@@ -1,4 +1,4 @@
-component implements = 'Container' {
+component implements = 'IContainer' {
 
 	ApplicationContainer function init(required string name) {
 		variables.name = arguments.name;

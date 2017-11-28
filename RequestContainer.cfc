@@ -1,4 +1,4 @@
-component implements = 'Container' {
+component implements = 'IContainer' {
 
 	RequestContainer function init(string name) {
 		variables.name = structKeyExists(arguments, 'name') ? arguments.name : 'rc_#getTickCount()#';

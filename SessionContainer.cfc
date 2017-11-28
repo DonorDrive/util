@@ -1,4 +1,4 @@
-component implements = 'Container' {
+component implements = 'IContainer' {
 
 	SessionContainer function init(required string name) {
 		variables.name = arguments.name;

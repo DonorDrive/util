@@ -1,6 +1,6 @@
 component {
 
-	CacheProxy function init(required Container container, required any target, function hasher, string methodList = '*') {
+	CacheProxy function init(required IContainer container, required any target, function hasher, string methodList = '*') {
 		variables.target = arguments.target;
 
 		local.metadata = getMetadata(variables.target);

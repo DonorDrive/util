@@ -1,4 +1,4 @@
-component implements = 'Container' {
+component implements = 'IContainer' {
 
 	SimpleContainer function init() {
 		variables.store = {};

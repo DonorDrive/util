@@ -1,4 +1,4 @@
-component accessors = 'true' implements = 'Container' {
+component accessors = 'true' implements = 'IContainer' {
 // TODO: support all cookie properties
 	property name = 'encryptionKey' type = 'string' default = '';
 	property name = 'expires' type = 'numeric' default = '30';

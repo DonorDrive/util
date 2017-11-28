@@ -1,4 +1,4 @@
-component implements = 'Container' {
+component implements = 'IContainer' {
 
 	EhcacheContainer function init(required string name) {
 		variables.name = arguments.name;
