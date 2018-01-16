@@ -1,9 +1,9 @@
 component extends = "mxunit.framework.TestCase" {
 
 	function beforeTests() {
-		variables.cacheProxy = new donordrive.util.CacheProxy(
-			container = new donordrive.util.SimpleContainer(),
-			target = new donordrive.util.tests.ObjectToCache()
+		variables.cacheProxy = new lib.util.CacheProxy(
+			container = new lib.util.SimpleContainer(),
+			target = new lib.util.tests.ObjectToCache()
 		);
 	}
 
