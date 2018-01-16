@@ -1,4 +1,4 @@
-component implements = 'IContainer' {
+component implements = "IContainer" {
 
 	EhcacheContainer function init(required string name) {
 		variables.name = arguments.name;
@@ -38,11 +38,11 @@ component implements = 'IContainer' {
 	}
 
 	string function keyList() {
-		return listSort(arrayToList(cacheGetAllIds(variables.name)), 'textnocase');
+		return listSort(arrayToList(cacheGetAllIds(variables.name)), "textnocase");
 	}
 
 	void function put(required string key, required any value) {
-		cachePut(arguments.key, arguments.value, '', '', variables.name);
+		cachePut(arguments.key, arguments.value, "", "", variables.name);
 	}
 
 	void function putAll(required struct values, boolean clear = false, boolean overwrite = false) {

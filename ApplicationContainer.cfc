@@ -1,4 +1,4 @@
-component implements = 'IContainer' {
+component implements = "IContainer" {
 
 	ApplicationContainer function init(required string name) {
 		variables.name = arguments.name;
@@ -38,7 +38,7 @@ component implements = 'IContainer' {
 	}
 
 	string function keyList() {
-		return listSort(structKeyList(application[variables.name]), 'textnocase');
+		return listSort(structKeyList(application[variables.name]), "textnocase");
 	}
 
 	void function put(required string key, required any value) {

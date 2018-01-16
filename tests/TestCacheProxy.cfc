@@ -1,4 +1,4 @@
-component extends = 'mxunit.framework.TestCase' {
+component extends = "mxunit.framework.TestCase" {
 
 	function beforeTests() {
 		variables.cacheProxy = new donordrive.util.CacheProxy(
@@ -9,19 +9,19 @@ component extends = 'mxunit.framework.TestCase' {
 
 	function test_defaultHasher() {
 		local.hash = variables.cacheProxy.defaultHasher(
-			variables.cacheProxy.getMethodArguments('echoWithTickcount'),
+			variables.cacheProxy.getMethodArguments("echoWithTickcount"),
 			{
-				echo: 'foo',
+				echo: "foo",
 				sleep: 1
 			}
 		);
 
-		assertEquals(hash('echo:foo;sleep:1', 'MD5', 'UTF-8'), local.hash);
+		assertEquals(hash("echo:foo;sleep:1", "MD5", "UTF-8"), local.hash);
 	}
 
 	function test_defaultHasher_typeless() {
 		local.hash = variables.cacheProxy.defaultHasher(
-			variables.cacheProxy.getMethodArguments('typelessMethod'),
+			variables.cacheProxy.getMethodArguments("typelessMethod"),
 			{
 				bar: 1,
 				foo: 2,
@@ -29,7 +29,7 @@ component extends = 'mxunit.framework.TestCase' {
 			}
 		);
 
-		assertEquals(hash('bar:1;foo:2', 'MD5', 'UTF-8'), local.hash);
+		assertEquals(hash("bar:1;foo:2", "MD5", "UTF-8"), local.hash);
 	}
 
 	function test_onMissingMethod_echoWithTickcount() {

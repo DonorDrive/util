@@ -9,7 +9,7 @@ component {
 			sleep(arguments.sleep);
 		}
 
-		return getTickCount() & ' ' & arguments.echo;
+		return getTickCount() & " " & arguments.echo;
 	}
 
 	void function static() {

@@ -1,7 +1,7 @@
-component implements = 'IContainer' {
+component implements = "IContainer" {
 
 	RequestContainer function init(string name) {
-		variables.name = structKeyExists(arguments, 'name') ? arguments.name : 'rc_#getTickCount()#';
+		variables.name = structKeyExists(arguments, "name") ? arguments.name : "rc_#getTickCount()#";
 
 		request[variables.name] = {};
 
@@ -35,7 +35,7 @@ component implements = 'IContainer' {
 	}
 
 	string function keyList() {
-		return listSort(structKeyList(request[variables.name]), 'textnocase');
+		return listSort(structKeyList(request[variables.name]), "textnocase");
 	}
 
 	void function put(required string key, required any value) {

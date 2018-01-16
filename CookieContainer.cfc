@@ -1,9 +1,9 @@
-component accessors = 'true' implements = 'IContainer' {
+component accessors = "true" implements = "IContainer" {
 // TODO: support all cookie properties
-	property name = 'encryptionKey' type = 'string' default = '';
-	property name = 'expires' type = 'numeric' default = '30';
-	property name = 'httpOnly' type = 'boolean' default = 'true';
-	property name = 'secure' type = 'boolean' default = 'false';
+	property name = "encryptionKey" type = "string" default = "";
+	property name = "expires" type = "numeric" default = "30";
+	property name = "httpOnly" type = "boolean" default = "true";
+	property name = "secure" type = "boolean" default = "false";
 
 	CookieContainer function init(required string name) {
 		variables.name = arguments.name;
@@ -54,7 +54,7 @@ component accessors = 'true' implements = 'IContainer' {
 	}
 
 	string function keyList() {
-		return listSort(structKeyList(variables.store), 'textnocase');
+		return listSort(structKeyList(variables.store), "textnocase");
 	}
 
 	void function put(required string key, required any value) {
@@ -74,14 +74,14 @@ component accessors = 'true' implements = 'IContainer' {
 	}
 
 	private function refreshCookie() {
-		local.s = '';
+		local.s = "";
 
 		if(structKeyExists(variables, "store") && !structIsEmpty(variables.store)) {
 			local.s = serializeJson(variables.store);
 
 			if(len(getEncryptionKey()) > 0) {
 				// pad the encrypted value to prevent accidental trimming
-				local.s = '[[' & encrypt(local.s, getEncryptionKey(), 'AES', 'base64') & ']]';
+				local.s = "[[" & encrypt(local.s, getEncryptionKey(), "AES", "base64") & "]]";
 			}
 		}
 
@@ -100,17 +100,17 @@ component accessors = 'true' implements = 'IContainer' {
 		if(structKeyExists(cookie, variables.name)) {
 			// deserialize if the cookie is unencrypted
 			try {
-				local.s = reReplaceNoCase(cookie[variables.name], '(^\[\[|\]\]$)', '', 'all');
-				local.s = decrypt(local.s, variables.encryptionKey, 'AES', 'base64');
+				local.s = reReplaceNoCase(cookie[variables.name], "(^\[\[|\]\]$)", "", "all");
+				local.s = decrypt(local.s, variables.encryptionKey, "AES", "base64");
 				if(isJson(local.s)) {
 					variables.store = deserializeJson(local.s);
 				}
 			} catch(Any e) {
-				// do nothin' - we'll init the store below
+				// do nothin" - we'll init the store below
 			}
 		}
 
-		// if the store hasn't been initialized, do so now
+		// if the store hasn"t been initialized, do so now
 		if(!structKeyExists(variables, "store")) {
 			variables.store = {};
 		}

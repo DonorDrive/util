@@ -1,6 +1,6 @@
 component {
 
-	CacheProxy function init(required IContainer container, required any target, function hasher, string methodList = '*') {
+	CacheProxy function init(required IContainer container, required any target, function hasher, string methodList = "*") {
 		variables.target = arguments.target;
 
 		local.metadata = getMetadata(variables.target);
@@ -11,9 +11,9 @@ component {
 		variables.cachedMethods = arrayReduce(
 			local.metadata.functions,
 			function(result, method) {
-				if(arguments.method.name != 'init'
-					&& (structKeyExists(arguments.method, 'returnType') && arguments.method.returnType != 'void')
-					&& (methodList == '*' || listFindNoCase(methodList, arguments.method.name))
+				if(arguments.method.name != "init"
+					&& (structKeyExists(arguments.method, "returnType") && arguments.method.returnType != "void")
+					&& (methodList == "*" || listFindNoCase(methodList, arguments.method.name))
 				) {
 					arguments.result[arguments.method.name] = arguments.method.parameters;
 				}
@@ -25,7 +25,7 @@ component {
 
 		variables.container = arguments.container;
 
-		if(!structKeyExists(arguments, 'hasher')) {
+		if(!structKeyExists(arguments, "hasher")) {
 			variables.hasher = defaultHasher;
 		}
 
@@ -33,25 +33,25 @@ component {
 	}
 
 	string function defaultHasher(required array methodArguments, required struct inputValues) {
-		local.hash = '';
+		local.hash = "";
 
 		for(local.argument in arguments.methodArguments) {
 			if(structKeyExists(arguments.inputValues, local.argument.name)) {
-				switch(local.argument.type ?: 'any') {
-					case 'any':
+				switch(local.argument.type ?: "any") {
+					case "any":
 						if(isSimpleValue(arguments.inputValues[local.argument.name])) {
-							local.hash = listAppend(local.hash, local.argument.name & ':' & arguments.inputValues[local.argument.name], ';');
+							local.hash = listAppend(local.hash, local.argument.name & ":" & arguments.inputValues[local.argument.name], ";");
 						}
 						break;
-					case 'binary':
-					case 'boolean':
-					case 'date':
-					case 'guid':
-					case 'numeric':
-					case 'string':
-					case 'uuid':
-					case 'xml':
-						local.hash = listAppend(local.hash, local.argument.name & ':' & arguments.inputValues[local.argument.name], ';');
+					case "binary":
+					case "boolean":
+					case "date":
+					case "guid":
+					case "numeric":
+					case "string":
+					case "uuid":
+					case "xml":
+						local.hash = listAppend(local.hash, local.argument.name & ":" & arguments.inputValues[local.argument.name], ";");
 						break;
 					default:
 						// nothing we can do to establish uniqueness
@@ -60,7 +60,7 @@ component {
 			}
 		}
 
-		return hash(lCase(local.hash), 'MD5', 'UTF-8');
+		return hash(lCase(local.hash), "MD5", "UTF-8");
 	}
 
 	array function getMethodArguments(required string methodName) {
@@ -69,7 +69,7 @@ component {
 
 	any function onMissingMethod(required missingMethodName, required missingMethodArguments) {
 		if(structKeyExists(variables.cachedMethods, arguments.missingMethodName)) {
-			var hash = variables.name & '.' & arguments.missingMethodName & '.' & variables.hasher(getMethodArguments(arguments.missingMethodName), arguments.missingMethodArguments);
+			var hash = variables.name & "." & arguments.missingMethodName & "." & variables.hasher(getMethodArguments(arguments.missingMethodName), arguments.missingMethodArguments);
 
 			if(!variables.container.containsKey(hash)) {
 				var method = variables.target[arguments.missingMethodName];

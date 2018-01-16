@@ -1,7 +1,7 @@
-component extends = 'donordrive.util.tests.ContainerTestCase' {
+component extends = "donordrive.util.tests.ContainerTestCase" {
 
 	function setup() {
-		variables.container = new donordrive.util.SimpleContainer(name = 'MxUnit');
+		variables.container = new donordrive.util.SimpleContainer(name = "MxUnit");
 	}
 
 }

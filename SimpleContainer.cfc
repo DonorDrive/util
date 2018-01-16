@@ -1,4 +1,4 @@
-component implements = 'IContainer' {
+component implements = "IContainer" {
 
 	SimpleContainer function init() {
 		variables.store = {};
@@ -7,13 +7,13 @@ component implements = 'IContainer' {
 	}
 
 	void function clear() {
-		if(structKeyExists(variables, 'store')) {
+		if(structKeyExists(variables, "store")) {
 			structClear(variables.store);
 		}
 	}
 
 	boolean function containsKey(required string key) {
-		return structKeyExists(variables, 'store') && structKeyExists(variables.store, arguments.key);
+		return structKeyExists(variables, "store") && structKeyExists(variables.store, arguments.key);
 	}
 
 	void function delete(required string key) {
@@ -21,7 +21,7 @@ component implements = 'IContainer' {
 	}
 
 	void function destroy() {
-		structDelete(variables, 'store');
+		structDelete(variables, "store");
 	}
 
 	any function get(required string key) {
@@ -31,11 +31,11 @@ component implements = 'IContainer' {
 	}
 
 	boolean function isEmpty() {
-		return !structKeyExists(variables, 'store') || structIsEmpty(variables.store);
+		return !structKeyExists(variables, "store") || structIsEmpty(variables.store);
 	}
 
 	string function keyList() {
-		return this.isEmpty() ? '' : listSort(structKeyList(variables.store), 'textnocase');
+		return this.isEmpty() ? "" : listSort(structKeyList(variables.store), "textnocase");
 	}
 
 	void function put(required string key, required any value) {

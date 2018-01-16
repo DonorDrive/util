@@ -1,14 +1,14 @@
-component extends = 'donordrive.util.tests.ContainerTestCase' {
+component extends = "donordrive.util.tests.ContainerTestCase" {
 
 	function setup() {
-		variables.container = new donordrive.util.RequestContainer(name = 'MxUnit');
+		variables.container = new donordrive.util.RequestContainer(name = "MxUnit");
 	}
 
 	function test_scope() {
 		local.value = getTickCount();
-		variables.container.put('MxUnit_test_scope', local.value);
+		variables.container.put("MxUnit_test_scope", local.value);
 
-		assertEquals(local.value, request['MxUnit']['MxUnit_test_scope']);
+		assertEquals(local.value, request["MxUnit"]["MxUnit_test_scope"]);
 	}
 
 }
