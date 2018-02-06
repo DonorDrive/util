@@ -37,10 +37,10 @@ component {
 
 		for(local.argument in arguments.methodArguments) {
 			if(structKeyExists(arguments.inputValues, local.argument.name)) {
-				switch(local.argument.type ?: "any") {
+				switch(structKeyExists(local.argument, "type") ? local.argument.type : "any") {
 					case "any":
 						if(isSimpleValue(arguments.inputValues[local.argument.name])) {
-							local.hash = listAppend(local.hash, local.argument.name & ":" & arguments.inputValues[local.argument.name], ";");
+							local.hash = listAppend(local.hash, local.argument.name & "=" & arguments.inputValues[local.argument.name], ":");
 						}
 						break;
 					case "binary":
@@ -51,7 +51,7 @@ component {
 					case "string":
 					case "uuid":
 					case "xml":
-						local.hash = listAppend(local.hash, local.argument.name & ":" & arguments.inputValues[local.argument.name], ";");
+						local.hash = listAppend(local.hash, local.argument.name & "=" & arguments.inputValues[local.argument.name], ":");
 						break;
 					default:
 						// nothing we can do to establish uniqueness
@@ -60,7 +60,7 @@ component {
 			}
 		}
 
-		return hash(lCase(local.hash), "MD5", "UTF-8");
+		return lCase(local.hash);
 	}
 
 	array function getMethodArguments(required string methodName) {
@@ -69,7 +69,7 @@ component {
 
 	any function onMissingMethod(required missingMethodName, required missingMethodArguments) {
 		if(structKeyExists(variables.cachedMethods, arguments.missingMethodName)) {
-			var hash = variables.name & "." & arguments.missingMethodName & "." & variables.hasher(getMethodArguments(arguments.missingMethodName), arguments.missingMethodArguments);
+			var hash = variables.name & "." & arguments.missingMethodName & "_" & variables.hasher(getMethodArguments(arguments.missingMethodName), arguments.missingMethodArguments);
 
 			if(!variables.container.containsKey(hash)) {
 				variables.container.put(

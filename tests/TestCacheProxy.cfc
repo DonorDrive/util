@@ -16,7 +16,7 @@ component extends = "mxunit.framework.TestCase" {
 			}
 		);
 
-		assertEquals(hash("echo:foo;sleep:1", "MD5", "UTF-8"), local.hash);
+		assertEquals("echo=foo:sleep=1", local.hash);
 	}
 
 	function test_defaultHasher_typeless() {
@@ -29,7 +29,7 @@ component extends = "mxunit.framework.TestCase" {
 			}
 		);
 
-		assertEquals(hash("bar:1;foo:2", "MD5", "UTF-8"), local.hash);
+		assertEquals("bar=1:foo=2", local.hash);
 	}
 
 	function test_onMissingMethod_echoWithTickcount() {
