@@ -72,15 +72,15 @@ component {
 			var hash = variables.name & "." & arguments.missingMethodName & "." & variables.hasher(getMethodArguments(arguments.missingMethodName), arguments.missingMethodArguments);
 
 			if(!variables.container.containsKey(hash)) {
-				var method = variables.target[arguments.missingMethodName];
-				var result = method(argumentCollection = arguments.missingMethodArguments);
-				variables.container.put(hash, result);
+				variables.container.put(
+					hash,
+					invoke(variables.target, arguments.missingMethodName, arguments.missingMethodArguments)
+				);
 			}
 
 			return variables.container.get(hash);
 		} else {
-			var method = variables.target[arguments.missingMethodName];
-			return method(argumentCollection = arguments.missingMethodArguments);
+			return invoke(variables.target, arguments.missingMethodName, arguments.missingMethodArguments);
 		}
 	}
 
