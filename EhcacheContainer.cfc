@@ -1,4 +1,7 @@
-component implements = "IContainer" {
+component accessors = "true" implements = "IContainer" {
+
+	property name = "idleTime" type = "string" default = "";
+	property name = "timeSpan" type = "string" default = "";
 
 	EhcacheContainer function init(required string name) {
 		variables.name = arguments.name;
@@ -42,7 +45,7 @@ component implements = "IContainer" {
 	}
 
 	void function put(required string key, required any value) {
-		cachePut(arguments.key, arguments.value, "", "", variables.name);
+		cachePut(arguments.key, arguments.value, getTimeSpan(), getIdleTime(), variables.name);
 	}
 
 	void function putAll(required struct values, boolean clear = false, boolean overwrite = false) {
