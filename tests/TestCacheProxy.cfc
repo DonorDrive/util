@@ -7,8 +7,9 @@ component extends = "mxunit.framework.TestCase" {
 		);
 	}
 
-	function test_defaultHasher() {
-		local.hash = variables.cacheProxy.defaultHasher(
+	function test_hasher_default() {
+		local.hash = variables.cacheProxy.hasher(
+			"echoWithTickcount",
 			variables.cacheProxy.getMethodArguments("echoWithTickcount"),
 			{
 				echo: "foo",
@@ -19,8 +20,8 @@ component extends = "mxunit.framework.TestCase" {
 		assertEquals("echo=foo:sleep=1", local.hash);
 	}
 
-	function test_defaultHasher_typeless() {
-		local.hash = variables.cacheProxy.defaultHasher(
+	function test_hasher_default_typeless() {
+		local.hash = variables.cacheProxy.hasher(
 			"typelessMethod",
 			variables.cacheProxy.getMethodArguments("typelessMethod"),
 			{
@@ -32,6 +33,31 @@ component extends = "mxunit.framework.TestCase" {
 
 		assertEquals("bar=1:foo=2", local.hash);
 	}
+
+	function test_hasher_override() {
+		local.hasher = function() {
+			return "bub";
+		};
+
+		local.cacheProxy = new lib.util.CacheProxy(
+			container = new lib.util.SimpleContainer(),
+			hasher = local.hasher,
+			target = new lib.util.tests.ObjectToCache()
+		);
+
+		local.hash = local.cacheProxy.hasher(
+			"typelessMethod",
+			variables.cacheProxy.getMethodArguments("typelessMethod"),
+			{
+				bar: 1,
+				foo: 2,
+				extra: {}
+			}
+		);
+
+		assertEquals("bub", local.hash);
+	}
+
 
 	function test_onMissingMethod_echoWithTickcount() {
 		local.result1 = variables.cacheProxy.echoWithTickcount(echo = "Test", sleep = 100);
