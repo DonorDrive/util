@@ -21,6 +21,7 @@ component extends = "mxunit.framework.TestCase" {
 
 	function test_defaultHasher_typeless() {
 		local.hash = variables.cacheProxy.defaultHasher(
+			"typelessMethod",
 			variables.cacheProxy.getMethodArguments("typelessMethod"),
 			{
 				bar: 1,

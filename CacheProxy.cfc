@@ -32,7 +32,7 @@ component {
 		return this;
 	}
 
-	string function defaultHasher(required array methodArguments, required struct inputValues) {
+	string function defaultHasher(required string methodName, required array methodArguments, required struct inputValues) {
 		local.hash = "";
 
 		for(local.argument in arguments.methodArguments) {
@@ -69,7 +69,7 @@ component {
 
 	any function onMissingMethod(required missingMethodName, required missingMethodArguments) {
 		if(structKeyExists(variables.cachedMethods, arguments.missingMethodName)) {
-			var hash = variables.name & "." & arguments.missingMethodName & "_" & variables.hasher(getMethodArguments(arguments.missingMethodName), arguments.missingMethodArguments);
+			var hash = variables.name & "." & arguments.missingMethodName & "_" & variables.hasher(arguments.missingMethodName, getMethodArguments(arguments.missingMethodName), arguments.missingMethodArguments);
 
 			if(!variables.container.containsKey(hash)) {
 				variables.container.put(
