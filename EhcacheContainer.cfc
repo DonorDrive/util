@@ -3,49 +3,67 @@ component accessors = "true" implements = "IContainer" {
 	property name = "idleTime" type = "string" default = "";
 	property name = "timeSpan" type = "string" default = "";
 
-	EhcacheContainer function init(required string name) {
+	EhcacheContainer function init(required string name, string managerName) {
 		variables.name = arguments.name;
 
-		// for anything more verbose, consider initializing the region prior to creating container
-		if(!cacheRegionExists(variables.name)) {
-			cacheRegionNew(variables.name);
+		if(structKeyExists(arguments, "managerName")) {
+			// the named CacheManager
+			variables.cacheManager = createObject("java", "net.sf.ehcache.CacheManager").getCacheManager(arguments.managerName);
+		} else {
+			// the default/singleton CacheManager
+			variables.cacheManager = createObject("java", "net.sf.ehcache.CacheManager").getInstance();
 		}
+
+		// for anything more verbose, consider initializing the region prior to creating container
+		variables.cache = variables.cacheManager.addCacheIfAbsent(arguments.name);
 
 		return this;
 	}
 
 	void function clear() {
-		cacheRemoveAll(variables.name);
+		variables.cache.removeAll();
 	}
 
 	boolean function containsKey(required string key) {
-		return cacheRegionExists(variables.name) && cacheIdExists(arguments.key, variables.name);
+		return variables.cache.isKeyInCache(arguments.key);
 	}
 
 	void function delete(required string key) {
-		cacheRemove(arguments.key, false, variables.name);
+		variables.cache.remove(arguments.key);
 	}
 
 	void function destroy() {
-		cacheRegionRemove(variables.name);
+		variables.cacheManager.removeCache(variables.name);
 	}
 
 	any function get(required string key) {
 		if(containsKey(arguments.key)) {
-			return cacheGet(arguments.key, variables.name);
+			return variables.cache.get(arguments.key).getObjectValue();
 		}
 	}
 
+	EhcacheContainer function getManager() {
+		return variables.cacheManager;
+	}
+
 	boolean function isEmpty() {
-		return !cacheRegionExists(variables.name) || arrayLen(cacheGetAllIds(variables.name, false)) == 0;
+		return variables.cacheManager.cacheExists(variables.name) ? variables.cache.getKeysWithExpiryCheck().size() == 0 : true;
 	}
 
 	string function keyList() {
-		return listSort(arrayToList(cacheGetAllIds(variables.name)), "textnocase");
+		return listSort(arrayToList(variables.cache.getKeysWithExpiryCheck()), "textnocase");
 	}
 
 	void function put(required string key, required any value) {
-		cachePut(arguments.key, arguments.value, getTimeSpan(), getIdleTime(), variables.name);
+		variables.cache.put(
+			createObject("java", "net.sf.ehcache.Element")
+				.init(
+					arguments.key,
+					arguments.value,
+					(isNumeric(getIdleTime()) ? getIdleTime() : 0),
+					(isNumeric(getTimeSpan()) ? getTimeSpan() : 0)
+				)
+			);
 	}
 
 	void function putAll(required struct values, boolean clear = false, boolean overwrite = false) {

@@ -25,19 +25,14 @@ component {
 
 		variables.container = arguments.container;
 
-		if(structKeyExists(arguments, "hasher")) {
-			// replace the local one
-			this.hasher = arguments.hasher;
+		if(!structKeyExists(arguments, "hasher")) {
+			variables.hasher = defaultHasher;
 		}
 
 		return this;
 	}
 
-	array function getMethodArguments(required string methodName) {
-		return variables.cachedMethods[arguments.methodName];
-	}
-
-	string function hasher(required string methodName, required array methodArguments, required struct inputValues) {
+	string function defaultHasher(required array methodArguments, required struct inputValues) {
 		local.hash = "";
 
 		for(local.argument in arguments.methodArguments) {
@@ -68,9 +63,13 @@ component {
 		return lCase(local.hash);
 	}
 
+	array function getMethodArguments(required string methodName) {
+		return variables.cachedMethods[arguments.methodName];
+	}
+
 	any function onMissingMethod(required missingMethodName, required missingMethodArguments) {
 		if(structKeyExists(variables.cachedMethods, arguments.missingMethodName)) {
-			var hash = variables.name & "." & arguments.missingMethodName & "_" & this.hasher(arguments.missingMethodName, getMethodArguments(arguments.missingMethodName), arguments.missingMethodArguments);
+			var hash = variables.name & "." & arguments.missingMethodName & "_" & variables.hasher(getMethodArguments(arguments.missingMethodName), arguments.missingMethodArguments);
 
 			if(!variables.container.containsKey(hash)) {
 				variables.container.put(
