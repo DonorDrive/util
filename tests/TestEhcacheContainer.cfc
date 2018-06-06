@@ -9,9 +9,7 @@ component extends = "lib.util.tests.ContainerTestCase" {
 	}
 
 	function test_destroy() {
-//		variables.container.put("MxUnitTest_destroy", "MxUnitTest_destroy_value");
-//		variables.container.destroy();
-//		assertTrue(variables.container.isEmpty());
+//		ehcache isn't meant to be torn down with this regularity - wait until the very end of the suite
 	}
 
 	function test_scope() {
