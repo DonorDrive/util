@@ -42,7 +42,11 @@ component accessors = "true" implements = "IContainer" {
 		}
 	}
 
-	EhcacheContainer function getManager() {
+	any function getCache() {
+		return variables.cache;
+	}
+
+	any function getManager() {
 		return variables.cacheManager;
 	}
 
