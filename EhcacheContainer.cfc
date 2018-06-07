@@ -15,7 +15,7 @@ component accessors = "true" implements = "IContainer" {
 		}
 
 		// for anything more verbose, consider initializing the region prior to creating container
-		variables.cache = variables.cacheManager.addCacheIfAbsent(arguments.name);
+		variables.cache = variables.cacheManager.addCacheIfAbsent(javaCast("string", arguments.name));
 
 		return this;
 	}
