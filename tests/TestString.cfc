@@ -1,10 +1,10 @@
 component extends = "mxunit.framework.TestCase" {
 
 	function beforeTests() {
-		variables.string = new util.String();
+		variables.string = new lib.util.String();
 	}
 
-	function testEncodeForJSON() {
+	function test_encodeForJSON() {
 		local.testString = 'One"s''s\ms';
 
 		local.result = variables.string.encodeForJSON(local.testString);
