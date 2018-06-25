@@ -4,10 +4,10 @@ component extends = "mxunit.framework.TestCase" {
 		variables.string = new util.String();
 	}
 
-	function testEscapeJSONcharacters() {
+	function testEncodeForJSON() {
 		local.testString = 'One"s''s\ms';
 
-		local.result = variables.string.escapeJSONcharacters(local.testString);
+		local.result = variables.string.encodeForJSON(local.testString);
 
 		assertEquals(local.result, 'One\"s''s\\ms');
 	}
