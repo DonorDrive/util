@@ -37,8 +37,10 @@ component accessors = "true" implements = "IContainer" {
 	}
 
 	any function get(required string key) {
-		if(containsKey(arguments.key)) {
-			return variables.cache.get(arguments.key).getObjectValue();
+		local.element = variables.cache.get(arguments.key);
+
+		if(!isNull(local.element)) {
+			return local.element.getObjectValue();
 		}
 	}
 
