@@ -4,7 +4,7 @@ component {
 		return this;
 	}
 
-	string function echoWithTickcount(required string echo, numeric sleep = 0) {
+	string function echoWithTickCount(required string echo, numeric sleep = 0) {
 		if(arguments.sleep > 0) {
 			sleep(arguments.sleep);
 		}
