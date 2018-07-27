@@ -12,13 +12,6 @@ component extends = "mxunit.framework.TestCase" {
 		assertTrue(variables.container.containsKey("MxUnitTest_containsKey"));
 	}
 
-	function test_delete() {
-		variables.container.put("MxUnitTest_delete", "MxUnitTest_delete_value");
-		assertTrue(variables.container.containsKey("MxUnitTest_delete"));
-		variables.container.delete("MxUnitTest_delete");
-		assertFalse(variables.container.containsKey("MxUnitTest_delete"));
-	}
-
 	function test_destroy() {
 		variables.container.put("MxUnitTest_destroy", "MxUnitTest_destroy_value");
 		variables.container.destroy();
@@ -86,6 +79,13 @@ component extends = "mxunit.framework.TestCase" {
 		variables.container.putAll(values = local.struct, overwrite = true);
 
 		assertEquals("MxUnitTest_putAll_1_value_EDIT", variables.container.get("MxUnitTest_putAll_1"));
+	}
+
+	function test_remove() {
+		variables.container.put("MxUnitTest_remove", "MxUnitTest_remove_value");
+		assertTrue(variables.container.containsKey("MxUnitTest_remove"));
+		variables.container.remove("MxUnitTest_remove");
+		assertFalse(variables.container.containsKey("MxUnitTest_remove"));
 	}
 
 	function test_values() {

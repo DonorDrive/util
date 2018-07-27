@@ -16,10 +16,6 @@ component implements = "IContainer" {
 		return structKeyExists(variables, "store") && structKeyExists(variables.store, arguments.key);
 	}
 
-	void function delete(required string key) {
-		structDelete(variables.store, arguments.key);
-	}
-
 	void function destroy() {
 		structDelete(variables, "store");
 	}
@@ -48,6 +44,10 @@ component implements = "IContainer" {
 		}
 
 		structAppend(variables.store, arguments.values, arguments.overwrite);
+	}
+
+	void function remove(required string key) {
+		structDelete(variables.store, arguments.key);
 	}
 
 	struct function values() {
