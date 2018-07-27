@@ -2,7 +2,7 @@
 A set of general utility components geared toward simplifying common problems
 
 ##Getting Started
-The `util` project assumes that it will reside in a `lib` directory under the web root, or mapped in the consuming application.
+The `util` package assumes that it will reside in a `lib` directory under the web root, or mapped in the consuming application.
 
 ## lib.util.IContainer (and implementations)
 ColdFusion natively supports structures, but there is no set of consistent methods for accessing values across different flavors of  collections (native CF-scopes, Ehcache, user-defined objects, etc.). The goal of `IContainer` is to create that consistent set of methods regardless of the underlying collection.
