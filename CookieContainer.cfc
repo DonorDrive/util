@@ -31,12 +31,6 @@ component accessors = "true" implements = "IContainer" {
 		return structKeyExists(variables, "store") && structKeyExists(variables.store, arguments.key);
 	}
 
-	void function delete(required string key) {
-		structDelete(variables.store, arguments.key);
-
-		refreshCookie();
-	}
-
 	void function destroy() {
 		variables.store = {};
 
@@ -92,6 +86,12 @@ component accessors = "true" implements = "IContainer" {
 			secure = getSecure(),
 			value = local.s
 		);
+	}
+
+	void function remove(required string key) {
+		structDelete(variables.store, arguments.key);
+
+		refreshCookie();
 	}
 
 	CookieContainer function setEncryptionKey(required string encryptionKey) {

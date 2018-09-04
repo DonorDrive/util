@@ -28,10 +28,6 @@ component accessors = "true" implements = "IContainer" {
 		return variables.cache.isKeyInCache(arguments.key);
 	}
 
-	void function delete(required string key) {
-		variables.cache.remove(arguments.key);
-	}
-
 	void function destroy() {
 		variables.cacheManager.removeCache(variables.name);
 	}
@@ -82,6 +78,10 @@ component accessors = "true" implements = "IContainer" {
 				put(local.key, arguments.values[local.key]);
 			}
 		}
+	}
+
+	void function remove(required string key) {
+		variables.cache.remove(arguments.key);
 	}
 
 	struct function values() {

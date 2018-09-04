@@ -6,8 +6,6 @@ interface {
 
 	boolean function containsKey(required string key);
 
-	void function delete(required string key);
-
 	void function destroy();
 
 	any function get(required string key);
@@ -19,6 +17,8 @@ interface {
 	void function put(required string key, required any value);
 
 	void function putAll(required struct values, boolean clear = false, boolean overwrite = false);
+
+	void function remove(required string key);
 
 	struct function values();
 
