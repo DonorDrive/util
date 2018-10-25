@@ -1,7 +1,7 @@
 component accessors = "true" implements = "IContainer" {
 
-	property name = "idleTime" type = "string" default = "";
-	property name = "timeSpan" type = "string" default = "";
+	property name = "timeToIdleSeconds" type = "numeric" default = "0";
+	property name = "timeToLiveSeconds" type = "numeric" default = "0";
 
 	EhcacheContainer function init(required string name, string managerName) {
 		variables.name = arguments.name;
@@ -62,8 +62,8 @@ component accessors = "true" implements = "IContainer" {
 				.init(
 					arguments.key,
 					arguments.value,
-					(isNumeric(getIdleTime()) ? getIdleTime() : 0),
-					(isNumeric(getTimeSpan()) ? getTimeSpan() : 0)
+					getTimeToIdleSeconds(),
+					getTimeToLiveSeconds()
 				)
 			);
 	}
