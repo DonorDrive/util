@@ -11,4 +11,5 @@ component {
 
 		return arguments.string;
 	}
+
 }

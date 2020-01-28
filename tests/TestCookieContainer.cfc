@@ -7,10 +7,10 @@ component extends = "lib.util.tests.ContainerTestCase" {
 	}
 
 	function test_scope() {
-		local.value = getTickCount();
+		local.value = "foo";
 		variables.container.put("MxUnit_test_scope", local.value);
 
-		assertTrue(find("""MxUnit_test_scope"":#local.value#", cookie["MxUnit"]));
+		assertTrue(find('"MxUnit_test_scope":"foo"', cookie["MxUnit"]));
 	}
 
 }
