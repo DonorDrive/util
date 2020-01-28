@@ -12,5 +12,8 @@ At the time these components were originally written, CF strongly recommended lo
 ### Motivation
 DonorDrive uses a whole bunch of CF's native collections, and some not-so-native. Creating a homogeneous interface to interact with all these disparate collections simplifies development and onboarding new hires. It doesn't matter if you're working with a request-scoped collection, cookies, or Ehcache: manipulating the collection is the same.
 
+## lib.util.CacheProxy
+A caching intermediary that saves the result of an expensive method call for future use based on the incoming arguments. In this case, the result can be stored in any `util.IContainer` implementation. The goal is to isolate the responsibility of caching from the code doing the actual work.
+
 ### Motivation
 DonorDrive maintains a fairly complex object graph within persistent scopes. By creating a wrapper for object persistence using established patterns within the product, we can more seamlessly control what gets persisted, where, and for how long.
