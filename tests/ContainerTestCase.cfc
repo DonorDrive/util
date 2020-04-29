@@ -15,6 +15,7 @@ component extends = "mxunit.framework.TestCase" {
 	function test_destroy() {
 		variables.container.put("MxUnitTest_destroy", "MxUnitTest_destroy_value");
 		variables.container.destroy();
+		debug(variables.container.keyList())
 		assertTrue(variables.container.isEmpty());
 	}
 
@@ -27,7 +28,9 @@ component extends = "mxunit.framework.TestCase" {
 	function test_keyList() {
 		variables.container.put("MxUnitTest_key1", "MxUnitTest_key1_value");
 		variables.container.put("MxUnitTest_key2", "MxUnitTest_key2_value");
-		assertEquals("MxUnitTest_key1,MxUnitTest_key2", variables.container.keyList());
+		local.kl = variables.container.keyList();
+		assertTrue(listContainsNoCase(local.kl, "MxUnitTest_key1"));
+		assertTrue(listContainsNoCase(local.kl, "MxUnitTest_key2"));
 	}
 
 	function test_putAll() {

@@ -34,7 +34,11 @@ component implements = "IContainer" {
 	}
 
 	string function keyList() {
-		return listSort(structKeyList(application[variables.name]), "textnocase");
+		if(structKeyExists(application, variables.name)) {
+			return listSort(structKeyList(application[variables.name]), "textnocase");
+		}
+
+		return "";
 	}
 
 	void function put(required string key, required any value) {
