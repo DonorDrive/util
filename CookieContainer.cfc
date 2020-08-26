@@ -3,6 +3,7 @@ component accessors = "true" implements = "IContainer" {
 	property name = "encryptionKey" type = "string" default = "";
 	property name = "expires" type = "numeric" default = "30";
 	property name = "httpOnly" type = "boolean" default = "true";
+	property name = "sameSite" type = "string" default = "Lax";
 	property name = "secure" type = "boolean" default = "false";
 
 	CookieContainer function init(required string name) {
@@ -83,6 +84,7 @@ component accessors = "true" implements = "IContainer" {
 			expires = getExpires(),
 			httpOnly = getHttpOnly(),
 			name = variables.name,
+			sameSite = getSameSite(),
 			secure = getSecure(),
 			value = local.s
 		);
