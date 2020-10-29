@@ -11,4 +11,5 @@ component extends = "mxunit.framework.TestCase" {
 
 		assertEquals(local.result, 'One\"s''s\\ms');
 	}
+
 }
